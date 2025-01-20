@@ -36,7 +36,7 @@
         combo_esc {
             timeout-ms = <60>;
             key-positions = <0 1>;
-            bindings = <&kp TAB>;
+            bindings = <&kp ESC>;
             require-prior-idle-ms = <120>;
         };
 
