@@ -67,9 +67,9 @@
             require-prior-idle-ms = <100>;
         };
 
-        right_bracket {
-            bindings = <&kp RIGHT_BRACKET>;
-            key-positions = <8 9>;
+        under_score {
+            bindings = <&kp UNDER>;
+            key-positions = <7 6>;
             timeout-ms = <20>;
             require-prior-idle-ms = <100>;
         };
