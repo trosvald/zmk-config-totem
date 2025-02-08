@@ -80,6 +80,13 @@
             require-prior-idle-ms = <100>;
             timeout-ms = <20>;
         };
+
+        caps_lock {
+            bindings = <&kp CAPS>;
+            key-positions = <5 6>;
+            timeout-ms = <20>;
+            require-prior-idle-ms = <100>;
+        };
     };
 
     behaviors {
