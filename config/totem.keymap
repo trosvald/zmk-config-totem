@@ -255,10 +255,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-        &kp EXCL       &kp AT         &kp HASH      &kp DLLR       &kp PRCNT               &kp CARET     &kp AMPS         &kp ASTERISK  &kp SQT     &kp DQT
-        &kp CARET      &kp AMPERSAND  &kp ASTERISK  &kp SQT        &kp DOUBLE_QUOTES       &kp C_MUTE    &kp PRINTSCREEN  &trans        &trans      &kp RA(O)
-&trans  &kp BACKSLASH  &kp TILDE      &kp SLASH     &kp C_BRI_DEC  &kp C_BRIGHTNESS_INC    &kp C_VOL_DN  &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT  &kp BSLH   &trans
-                                      &trans        &trans         &trans                  &mo 3         &kp C_PP         &trans
+        &kp EXCL       &kp AT         &kp HASH      &kp DLLR  &kp PRCNT            &kp CARET     &kp AMPS         &kp ASTERISK  &kp SQT     &kp DQT
+        &kp CARET      &kp AMPERSAND  &kp ASTERISK  &kp SQT   &kp DOUBLE_QUOTES    &kp C_MUTE    &kp PRINTSCREEN  &trans        &trans      &kp RA(O)
+&trans  &kp BACKSLASH  &kp TILDE      &kp SLASH     &kp PLUS  &kp GRAVE            &kp C_VOL_DN  &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT  &kp BSLH   &trans
+                                      &trans        &trans    &trans               &mo 3         &kp C_PP         &trans
             >;
         };
 
@@ -307,10 +307,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-       &kp TAB     &kp I      &kp LC(LALT)  &kp O        &kp LC(F20)    &none  &none  &none  &none  &none
-       &lt TVP2 L  &kp LEFT   &kp LALT      &kp RIGHT    &kp SPACE      &none  &none  &none  &none  &none
-&kp J  &kp LSHFT   &kp LC(C)  &kp BSPC      &kp LC(V)    &kp LC(F19)    &none  &none  &none  &none  &none  &none
-                              &trans        &kp LC(F14)  &kp LC(F13)    &none  &none  &none
+       &kp TAB    &kp I      &kp LC(LALT)  &kp O        &kp LC(F20)    &none  &none  &none  &none  &none
+       &lt 5 L    &kp LEFT   &kp LALT      &kp RIGHT    &kp SPACE      &none  &none  &none  &none  &none
+&kp J  &kp LSHFT  &kp LC(C)  &kp BSPC      &kp LC(V)    &kp LC(F19)    &none  &none  &none  &none  &none  &none
+                             &trans        &kp LC(F14)  &kp LC(F13)    &none  &none  &none
             >;
         };
 
