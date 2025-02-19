@@ -15,337 +15,268 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
-#define BASE 0
-#define NAV  1
-#define SYM  2
-#define ADJ  3
-#define TVP1 4
-#define TVP2 5
-
-&mt {
-    quick-tap-ms = <150>;
-    global-quick-tap;
-    flavor = "tap-preferred";
-    tapping-term-ms = <170>;
-};
+#define Base        0
+#define Sym         1
+#define Num         2
 
 / {
-    combos {
-        compatible = "zmk,combos";
-
-        combo_esc {
-            timeout-ms = <60>;
-            key-positions = <0 1>;
-            bindings = <&kp ESC>;
-            require-prior-idle-ms = <120>;
+    behaviors {
+        layer_1_layer_2: layer_1_layer_2 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "LAYER_1_LAYER_2";
+            #binding-cells = <0>;
+            bindings = <&to 2>, <&to 1>;
         };
 
-        dash {
-            bindings = <&kp MINUS>;
-            key-positions = <19 31>;
-            timeout-ms = <70>;
+        sqt_to_0: sqt_to_0 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "SQT_TO_0";
+            #binding-cells = <0>;
+            bindings = <&kp SQT>, <&to 0>;
         };
 
-        tilde_combo {
-            bindings = <&kp TILDE>;
-            key-positions = <0 20>;
-            timeout-ms = <60>;
-            require-prior-idle-ms = <100>;
+        sl_sk: sl_sk {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SL_SK";
+            bindings = <&sk>, <&sl>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "balanced";
         };
 
-        enter_combo {
-            bindings = <&kp ENTER>;
-            key-positions = <13 12 11>;
-            timeout-ms = <70>;
-            require-prior-idle-ms = <100>;
+        kp_sk: kp_sk {
+            compatible = "zmk,behavior-hold-tap";
+            label = "KP_SK";
+            bindings = <&sk>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            flavor = "balanced";
         };
 
-        enter_right_combo {
-            bindings = <&kp ENTER>;
-            key-positions = <16 18 17>;
-            timeout-ms = <70>;
-            require-prior-idle-ms = <100>;
+        kp_kp: kp_kp {
+            compatible = "zmk,behavior-hold-tap";
+            label = "KP_KP";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            flavor = "tap-preferred";
+            hold-trigger-on-release;
         };
 
-        under_score {
-            bindings = <&kp UNDER>;
-            key-positions = <7 6>;
-            timeout-ms = <20>;
-            require-prior-idle-ms = <100>;
+        kp_comment: kp_comment {
+            compatible = "zmk,behavior-hold-tap";
+            label = "KP_COMMENT";
+            bindings = <&comment>, <&kp>;
+
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
         };
 
-        left_bracket {
-            bindings = <&kp LEFT_BRACKET>;
-            key-positions = <8 7>;
-            require-prior-idle-ms = <100>;
-            timeout-ms = <20>;
+        kp_link: kp_link {
+            compatible = "zmk,behavior-hold-tap";
+            label = "KP_LINK";
+            bindings = <&link>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
         };
 
-        caps_lock {
-            bindings = <&kp CAPS>;
-            key-positions = <5 6>;
-            timeout-ms = <20>;
-            require-prior-idle-ms = <100>;
+        kp_caps_word: kp_caps_word {
+            compatible = "zmk,behavior-hold-tap";
+            label = "KP_CAPS_WORD";
+            bindings = <&caps_word>, <&kp>;
+
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+        };
+
+        kp_lt: kp_lt {
+            compatible = "zmk,behavior-hold-tap";
+            label = "KP_LT";
+            bindings = <&lt>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <300>;
+            flavor = "tap-preferred";
+        };
+
+        sk_mo: sk_mo {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SK_MO";
+            bindings = <&mo>, <&sk>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <150>;
+        };
+
+        alfred_q: alfred_q {
+            compatible = "zmk,behavior-tap-dance";
+            label = "ALFRED_Q";
+            #binding-cells = <0>;
+            bindings = <&kp Q>, <&alfred>;
+
+            tapping-term-ms = <200>;
+        };
+
+        clipboard_w: clipboard_w {
+            compatible = "zmk,behavior-tap-dance";
+            label = "CLIPBOARD_W";
+            #binding-cells = <0>;
+            bindings = <&kp W>, <&kp LA(LG(C))>;
         };
     };
 
-    behaviors {
-        mt_left: mt_left {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_LEFT";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <400>;
-            quick-tap-ms = <170>;
-            flavor = "balanced";
-            hold-trigger-key-positions = <26 27 16 15 5 6 7 5 6 7 8 9 15 16 17 18 19 26 27 28 29 31 5 6 7 8 9 15 16 17 18 19 26 27 28 29 30 31 35 36 37 32 33 34>;
-            require-prior-idle-ms = <50>;
-            hold-trigger-on-release;
+    macros {
+        alfred: alfred {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_GUI &kp LGUI>;
+            label = "ALFRED";
+            wait-ms = <1>;
+            tap-ms = <40>;
         };
 
-        mt_right: mt_right {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_RIGHT";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <400>;
-            quick-tap-ms = <170>;
-            flavor = "balanced";
-            require-prior-idle-ms = <50>;
-            hold-trigger-on-release;
-            hold-trigger-key-positions = <0 1 4 10 11 12 13 14 20 21 22 23 24 25 2 35 36 37 3 32 33 34>;
+        comment: comment {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE &kp GRAVE &kp GRAVE>;
+            label = "COMMENT";
+            wait-ms = <1>;
+            tap-ms = <1>;
         };
 
-        mt_thumb: mt_thumb {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_THUMB";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            quick-tap-ms = <220>;
-            flavor = "balanced";
-            tapping-term-ms = <100>;
-            require-prior-idle-ms = <0>;
+        link: link {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LBKT &kp RIGHT_BRACKET &kp LPAR &kp RPAR>;
+            label = "LINK";
+            wait-ms = <1>;
+            tap-ms = <1>;
         };
 
-        mt_shift_left: mt_shift_left {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_SHIFT_LEFT";
-            bindings = <&kp>, <&kp>;
+        save_vim: save_vim {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp COLON &kp W &kp RET>;
+            label = "SAVE_VIM";
+        };
+    };
 
-            #binding-cells = <2>;
-            tapping-term-ms = <175>;
-            quick-tap-ms = <175>;
-            flavor = "tap-preferred";
-            hold-trigger-key-positions = <19 26 27 29 30 31 36 37 35 36 32 33 34 5 6 7 8 9 15 16 17 18 19 26 27 28 29 31>;
+    combos {
+        compatible = "zmk,combos";
+
+        alt_tab {
+            bindings = <&kp LG(TAB)>;
+            key-positions = <0 34>;
+        };
+
+        enter {
+            bindings = <&kp ENTER>;
+            key-positions = <33 32>;
+        };
+
+        tab_aine {
+            bindings = <&kp TAB>;
+            key-positions = <4 14>;
+        };
+
+        enter-2 {
+            bindings = <&kp ENTER>;
+            key-positions = <36 37>;
+        };
+
+        backspace {
+            bindings = <&kp BACKSPACE>;
+            key-positions = <24 13>;
+        };
+
+        backspace-2 {
+            bindings = <&kp BACKSPACE>;
+            key-positions = <16 27>;
+        };
+
+        enter-3 {
+            bindings = <&kp ENTER>;
+            key-positions = <33 34>;
+        };
+
+        enter-4 {
+            bindings = <&kp ENTER>;
+            key-positions = <36 35>;
+        };
+
+        shortcuts {
+            bindings = <&lt 5 LEFT_SHIFT>;
+            key-positions = <10 21>;
+            timeout-ms = <5>;
             require-prior-idle-ms = <20>;
-        };
-
-        mt_shift_right: mt_shift_right {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_SHIFT_RIGHT";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <175>;
-            quick-tap-ms = <175>;
-            flavor = "tap-preferred";
-            hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 25 32 33 34 35 36 37>;
-            require-prior-idle-ms = <20>;
-        };
-
-        hold_sticky: hold_sticky {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOLD_STICKY";
-            bindings = <&kp>, <&sk>;
-
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <150>;
-            quick-tap-ms = <220>;
-        };
-
-        mt_all: mt_all {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MT_ALL";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <175>;
-            quick-tap-ms = <175>;
-            flavor = "balanced";
-            require-prior-idle-ms = <35>;
-            hold-trigger-on-release;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
-        base_layer {
-            // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-
-            label = "BASE";
-
-            // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-            //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
-            //             ┃     Q     ┃     W     ┃     F     ┃     P     ┃     G     ┃   ┃     J     ┃     L     ┃     U     ┃     Y     ┃     ;     ┃
-            //             ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫
-            //             ┃     A     ┃     R     ┃     S     ┃     T     ┃     D     ┃   ┃     H     ┃     N     ┃     E     ┃     I     ┃     O     ┃
-            // ┏━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┓
-            // ┃     Q     ┃     Z     ┃     X     ┃     C     ┃     V     ┃     B     ┃   ┃     K     ┃     M     ┃     ,     ┃     .     ┃     /     ┃     \     ┃
-            // ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-            //                                     ┃    DEL    ┃    TAB    ┃    SPC    ┃   ┃   ENTER   ┃           ┃   BSPC    ┃
-            //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-
+        Base {
+            label = "Base";
             bindings = <
-                &kp Q  &kp W  &kp E         &kp R      &kp T        &kp Y      &kp U            &kp I      &kp O    &kp P
-                &kp A  &kp S  &kp D         &kp F      &kp G        &kp H      &kp J            &kp K      &kp L    &kp SEMICOLON
-&kp LEFT_SHIFT  &kp Z  &kp X  &kp C         &kp V      &kp B        &kp N      &kp M            &kp COMMA  &kp DOT  &kp FSLH       &kp RIGHT_SHIFT
-                              &kp LEFT_GUI  &lt 2 TAB  &kp ENTER    &kp SPACE  &lt 1 BACKSPACE  &lt 3 ESC
+                          &kp Q           &clipboard_w  &kp E      &kp R      &kp T         &kp Y          &kp U                   &kp I      &kp_kp UNDER O  &kp_kp MINUS P
+                          &kp_kp AT A     &kp S         &kp D      &kp F      &kp G         &kp H          &kp J                   &kp K      &kp L           &kp_kp PIPE SEMICOLON
+&kp_sk LEFT_SHIFT ESCAPE  &kp_kp LCTRL Z  &kp X         &kp C      &kp V      &kp B         &kp_kp SQT N   &kp_kp DOUBLE_QUOTES M  &kp COMMA  &kp DOT         &kp_kp QUESTION SLASH  &sl_sk LEFT_SHIFT 3
+                                                        &lt 1 TAB  &kp SPACE  &lt 4 LGUI    &kp BACKSPACE  &lt 1 SPACE             &lt 2 TAB
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
-        nav_layer {
-            // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-
-            label = "NAVI";
-
-            // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-            //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
-            //             ┃           ┃           ┃     UP    ┃           ┃     {     ┃   ┃     }     ┃     7     ┃     8     ┃     9     ┃     +     ┃
-            //             ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫
-            //             ┃   SHIFT   ┃   LEFT    ┃    DOWN   ┃   RIGHT   ┃     [     ┃   ┃     ]     ┃     4     ┃     5     ┃     6     ┃     -     ┃
-            // ┏━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┓
-            // ┃           ┃           ┃   P UP    ┃  C LOCK   ┃  P DOWN   ┃     (     ┃   ┃     )     ┃     1     ┃     2     ┃     3     ┃     *     ┃           ┃
-            // ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-            //                                     ┃           ┃    TAB    ┃    SPC    ┃   ┃    DEL    ┃     0     ┃           ┃
-            //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-
+        Num {
+            label = "Num";
             bindings = <
-          &kp COLON  &kp NUMBER_7  &kp NUMBER_8    &kp NUMBER_9  &kp LBRC    &kp RBRC    &kp HOME        &kp UP_ARROW  &kp END          &kp PAGE_UP
-          &kp EQUAL  &kp NUMBER_4  &kp NUMBER_5    &kp NUMBER_6  &kp LBKT    &kp RBKT    &kp LEFT_ARROW  &kp DOWN      &kp RIGHT_ARROW  &kp PAGE_DOWN
-&kp PIPE  &kp MINUS  &kp NUMBER_1  &kp NUMBER_2    &kp NUMBER_3  &kp LPAR    &kp RPAR    &kp K_COPY      &kp K_UNDO    &kp K_REDO       &kp KP_MULTIPLY  &trans
-                                   &kp UNDERSCORE  &kp NUMBER_0  &trans      &kp PERIOD  &trans          &kp KP_COMMA
+        &kp N1         &kp N2     &kp N3                &kp N4                 &kp N5      &kp N6     &kp N7    &kp N8        &kp_kp UNDERSCORE NUMBER_9  &kp_kp MINUS N0
+        &kp SEMICOLON  &kp MINUS  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp DOT     &kp EQUAL  &kp LEFT  &kp UP_ARROW  &kp RIGHT                   &kp COLON
+&trans  &kp GRAVE      &kp AT     &kp LBKT              &kp RBKT               &kp PLUS    &kp MINUS  &kp LEFT  &kp DOWN      &kp RIGHT                   &kp BACKSLASH    &trans
+                                  &trans                &trans                 &trans      &trans     &trans    &trans
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
-        sim_layer {
-            // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-
-            label = "SYM";
-
-            // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-            //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
-            //             ┃     !     ┃     @     ┃     #     ┃     $     ┃     %     ┃   ┃     ˆ     ┃     &     ┃     Ü     ┃     '     ┃     "     ┃
-            //             ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫
-            //             ┃     Ä     ┃           ┃    SZ     ┃           ┃           ┃   ┃   MUTE    ┃   YEN     ┃   EURO    ┃  POUND    ┃     Ö     ┃
-            // ┏━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┓
-            // ┃           ┃  EMAIL1   ┃  EMAIL2   ┃           ┃           ┃           ┃   ┃   VOL-    ┃   VOL+    ┃   LAST    ┃   NEXT    ┃     \     ┃           ┃
-            // ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-            //                                     ┃           ┃    GIF    ┃    ADJ    ┃   ┃           ┃           ┃           ┃
-            //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-
+        Sym {
+            label = "Sym";
             bindings = <
-        &kp EXCL       &kp AT         &kp HASH      &kp DLLR  &kp PRCNT            &kp CARET     &kp AMPS         &kp ASTERISK  &kp SQT     &kp DQT
-        &kp CARET      &kp AMPERSAND  &kp ASTERISK  &kp SQT   &kp DOUBLE_QUOTES    &kp C_MUTE    &kp PRINTSCREEN  &trans        &trans      &kp RA(O)
-&trans  &kp BACKSLASH  &kp TILDE      &kp SLASH     &kp PLUS  &kp GRAVE            &kp C_VOL_DN  &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT  &kp BSLH   &trans
-                                      &trans        &trans    &trans               &mo 3         &kp C_PP         &trans
+        &kp GRAVE  &kp AMPERSAND  &kp ASTERISK  &kp LEFT_BRACE  &kp RIGHT_BRACE    &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &trans
+        &kp COLON  &kp DOLLAR     &kp PERCENT   &kp CARET       &kp PLUS           &kp LEFT_BRACKET      &kp LEFT               &kp UP_ARROW      &kp RIGHT          &none
+&trans  &kp TILDE  &kp EXCL       &kp AT        &kp HASH        &kp PIPE           &kp DQT               &kp LEFT_ARROW         &kp DOWN_ARROW    &kp RIGHT          &kp BACKSLASH  &trans
+                                  &trans        &trans          &trans             &trans                &trans                 &trans
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
-        adjust_layer {
-            // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-
-            label = "ADJ";
-
-            // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-            //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
-            //             ┃   RESET   ┃ BT CLEAR  ┃  OUT TOG  ┃           ┃           ┃   ┃           ┃    F7     ┃    F8     ┃    F9     ┃    F12    ┃
-            //             ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫
-            //             ┃ BOOTLOAD  ┃ BT NEXT   ┃           ┃           ┃           ┃   ┃           ┃    F4     ┃    F5     ┃    F6     ┃    F11    ┃
-            // ┏━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┓
-            // ┃           ┃           ┃ BT PREV   ┃           ┃           ┃           ┃   ┃           ┃    F1     ┃    F2     ┃    F3     ┃    F10    ┃           ┃
-            // ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-            //                                     ┃           ┃           ┃           ┃   ┃           ┃           ┃           ┃
-            //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-
+        shortcuts {
             bindings = <
-        &sys_reset   &bt BT_CLR  &out OUT_TOG  &trans  &trans    &trans  &kp F7  &kp F8  &kp F9  &kp F12
-        &bootloader  &bt BT_NXT  &trans        &trans  &trans    &trans  &kp F4  &kp F5  &kp F6  &kp F11
-&trans  &trans       &bt BT_PRV  &trans        &trans  &trans    &trans  &kp F1  &kp F2  &kp F3  &kp F10  &trans
-                                 &trans        &trans  &trans    &trans  &trans  &trans
+        &kp LG(NUMBER_1)  &kp LG(NUMBER_2)  &kp LG(NUMBER_3)  &kp LG(NUMBER_4)  &save_vim    &comment              &kp LG(LA(C))  &kp LC(LG(O))  &none          &save_vim
+        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &none        &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &none
+&trans  &kp LG(LC(Z))     &kp LG(LC(X))     &kp LG(LC(C))     &kp LG(D)         &none        &kp LALT              &kp LG(LC(I))  &kp LC(LG(F))  &kp LC(LG(K))  &none      &alfred
+                                            &none             &none             &alfred      &kp LS(LG(NUMBER_4))  &none          &none
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
-        tvp1_layer {
-            // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-
-            label = "TVP 1";
-
-            // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-            //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
-            //             ┃ NEXT FILE ┃ MARK IN   ┃ ROTATE    ┃ MARK OUT  ┃ SHOW SNAP ┃   ┃           ┃           ┃           ┃           ┃           ┃
-            //             ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫
-            //             ┃ TVP II    ┃ LEFT      ┃ PAN       ┃ RIGHT     ┃ PLAY/FLIP ┃   ┃           ┃           ┃           ┃           ┃           ┃
-            // ┏━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┓
-            // ┃ FULLSCR   ┃ SHIFT     ┃ COPY      ┃ DELETE    ┃ PASTE     ┃ IMG MARK  ┃   ┃           ┃           ┃           ┃           ┃           ┃           ┃
-            // ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-            //                                     ┃           ┃ UNDO/SAVE ┃  SEL/MOV  ┃   ┃           ┃           ┃           ┃
-            //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-
+        meta {
+            label = "meta";
             bindings = <
-       &kp TAB    &kp I      &kp LC(LALT)  &kp O        &kp LC(F20)    &none  &none  &none  &none  &none
-       &lt 5 L    &kp LEFT   &kp LALT      &kp RIGHT    &kp SPACE      &none  &none  &none  &none  &none
-&kp J  &kp LSHFT  &kp LC(C)  &kp BSPC      &kp LC(V)    &kp LC(F19)    &none  &none  &none  &none  &none  &none
-                             &trans        &kp LC(F14)  &kp LC(F13)    &none  &none  &none
+                &kp LG(Q)  &kp LG(W)  &kp LG(E)  &kp LG(R)  &kp LG(T)    &kp LG(Y)             &kp LG(U)  &kp LG(I)      &kp LG(O)    &kp LG(MINUS)
+                &kp LG(A)  &kp LG(S)  &kp LG(D)  &kp LG(F)  &kp LG(G)    &kp LG(H)             &kp LG(J)  &kp LG(K)      &kp LG(L)    &kp LG(SEMICOLON)
+&kp LEFT_SHIFT  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &none        &kp LG(N)             &kp LG(M)  &kp LG(COMMA)  &kp LG(DOT)  &kp LG(SLASH)      &kp RIGHT_SHIFT
+                                      &trans     &kp SPACE  &none        &kp LG(LS(NUMBER_4))  &none      &trans
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
-        tvp2_layer {
-            // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-
-            label = "TVP 2";
-
-            // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-            //             ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓   ┏━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┓
-            //             ┃ SOLO      ┃ TOGGLE IN ┃ RESET ROT ┃ TOGGLE OUT┃ TAKE SNAP ┃   ┃           ┃           ┃           ┃           ┃           ┃
-            //             ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫
-            //             ┃ ---       ┃ LAST KEY  ┃ NEW KEY   ┃ NEXT KEY  ┃ ENTER     ┃   ┃           ┃           ┃           ┃           ┃           ┃
-            // ┏━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┓
-            // ┃           ┃ FULLSCR   ┃ CPY2BRUSH ┃ DEL HEAD  ┃ PSTinPLACE┃ BOOK MARK ┃   ┃           ┃           ┃           ┃           ┃           ┃           ┃
-            // ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┫   ┣━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━╋━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-            //                                     ┃           ┃ REDO/SAV1 ┃TRANS/WARP ┃   ┃           ┃           ┃           ┃
-            //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
-
+        vim {
             bindings = <
-        &kp LC(F18)  &kp LS(I)     &kp LS(HOME)  &kp LS(O)      &kp LS(F)      &trans  &kp F7  &kp F8  &kp F9  &kp F12
-        &trans       &kp LS(LEFT)  &kp LC(F17)   &kp LS(RIGHT)  &kp RET        &trans  &kp F4  &kp F5  &kp F6  &kp F11
-&trans  &kp J        &kp LS(C)     &kp LC(F16)   &kp LS(V)      &kp LC(F15)    &trans  &kp F1  &kp F2  &kp F3  &kp F10  &trans
-                                   &trans        &kp LC(F12)    &kp LC(F11)    &trans  &trans  &trans
-            >;
-        };
-
-        navigation {
-            bindings = <
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans    &kp UP_ARROW  &kp RIGHT
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans    &kp DOWN      &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &kp LEFT  &trans        &trans     &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT_BRACE      &kp RIGHT_BRACE  &trans         &save_vim
+        &trans  &trans  &trans  &trans  &trans    &trans  &kp LA(LEFT)        &kp LA(UP)       &kp LA(RIGHT)  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LA(LEFT_ARROW)  &kp LA(DOWN)     &kp LA(RIGHT)  &trans     &trans
+                        &trans  &trans  &trans    &trans  &trans              &trans
             >;
         };
     };
