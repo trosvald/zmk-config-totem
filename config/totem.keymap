@@ -164,6 +164,13 @@
             bindings = <&kp COLON &kp W &kp RET>;
             label = "SAVE_VIM";
         };
+
+        ctrl_c: ctrl_c {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LCTRL &kp C>;
+            label = "CTRL_C";
+        };
     };
 
     combos {
@@ -263,7 +270,7 @@
         shortcuts {
             bindings = <
         &kp LG(NUMBER_1)  &kp LG(NUMBER_2)  &kp LG(NUMBER_3)  &kp LG(NUMBER_4)  &save_vim    &comment              &kp LG(LA(C))  &kp LC(LG(O))  &none          &save_vim
-        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &none        &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &none
+        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &none        &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &ctrl_c
 &trans  &kp LG(LC(Z))     &kp LG(LC(X))     &kp LG(LC(C))     &kp LG(D)         &none        &kp LALT              &kp LG(LC(I))  &kp LC(LG(F))  &kp LC(LG(K))  &none      &alfred
                                             &none             &none             &alfred      &kp LS(LG(NUMBER_4))  &none          &none
             >;
