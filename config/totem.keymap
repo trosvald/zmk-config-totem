@@ -165,32 +165,32 @@
             label = "SAVE_VIM";
         };
 
-        pass_one: pass1 {
+        control_one: control_one {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(B) &kp AT &kp N &kp T &kp AT &kp R &kp LS(G) &kp N3 &kp B &kp AT &kp N &kp G &kp N2 &kp N0 &kp N2 &kp N4 &kp ENTER>;
-            label = "PASS1";
+            label = "CTRONE";
         };
 
-        pass_two: pass1 {
+        control_two: control_two {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(B) &kp AT &kp N &kp T &kp AT &kp R &kp LS(G) &kp N3 &kp B &kp AT &kp N &kp G &kp N2 &kp N0 &kp N2 &kp NUMBER_3 &kp ENTER>;
-            label = "PASS1";
+            label = "CTRTWO";
         };
 
-        pass_three: pass3 {
+        control_three: control_three {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(T) &kp R &kp N0 &kp S &kp V &kp AT &kp L &kp D &kp N0 &kp N7>;
-            label = "PASS3";
+            label = "CTRTHREE";
         };
 
-        pass_four: pass4 {
+        control_four: control_four {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp M &kp P &kp T &kp I &kp N0 &kp N6 &kp N0 &kp N9 &kp N1 &kp N3>;
-            label = "PASS4";
+            label = "CTRFOUR";
         };
     };
 
@@ -290,10 +290,10 @@
 
         shortcuts {
             bindings = <
-        &kp LG(NUMBER_1)  &kp LG(NUMBER_2)  &kp LG(NUMBER_3)  &kp LG(NUMBER_4)  &save_vim      &comment              &kp LG(LA(C))  &kp LC(LG(O))  &none          &save_vim
-        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &pass_three    &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &pass_one
-&trans  &kp LG(LC(Z))     &kp LG(LC(X))     &kp LG(LC(C))     &kp LG(D)         &pass_four     &kp LALT              &kp LG(LC(I))  &kp LC(LG(F))  &kp LC(LG(K))  &pass_two  &kp LC(C)
-                                            &none             &none             &alfred        &kp LS(LG(NUMBER_4))  &none          &none
+        &kp LG(NUMBER_1)  &kp LG(NUMBER_2)  &kp LG(NUMBER_3)  &kp LG(NUMBER_4)  &save_vim         &comment              &kp LG(LA(C))  &kp LC(LG(O))  &none          &save_vim
+        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &control_three    &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &control_one
+&trans  &kp LG(LC(Z))     &kp LG(LC(X))     &kp LG(LC(C))     &kp LG(D)         &control_four     &kp LALT              &kp LG(LC(I))  &kp LC(LG(F))  &kp LC(LG(K))  &control_two  &kp LC(C)
+                                            &none             &none             &alfred           &kp LS(LG(NUMBER_4))  &none          &none
             >;
         };
 
