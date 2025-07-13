@@ -165,18 +165,32 @@
             label = "SAVE_VIM";
         };
 
-        ctrl_c: ctrl_c {
+        pass1: pass1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(B) &kp AT &kp N &kp T &kp AT &kp R &kp LS(G) &kp N3 &kp B &kp AT &kp N &kp G &kp N2 &kp N0 &kp N2 &kp N4 &kp ENTER>;
-            label = "CTRL_C";
+            label = "PASS1";
         };
 
-        ctrl_f: ctrl_f {
+        pass2: pass1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(B) &kp AT &kp N &kp T &kp AT &kp R &kp LS(G) &kp N3 &kp B &kp AT &kp N &kp G &kp N2 &kp N0 &kp N2 &kp NUMBER_3 &kp ENTER>;
-            label = "CTRL_F";
+            label = "PASS1";
+        };
+
+        pass3: pass3 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(T) &kp R &kp N0 &kp S &kp V &kp AT &kp L &kp D &kp N0 &kp N7>;
+            label = "PASS3";
+        };
+
+        pass4: pass4 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp M &kp P &kp T &kp I &kp N0 &kp N6 &kp N0 &kp N9 &kp N1 &kp N3>;
+            label = "PASS4";
         };
     };
 
@@ -277,8 +291,8 @@
         shortcuts {
             bindings = <
         &kp LG(NUMBER_1)  &kp LG(NUMBER_2)  &kp LG(NUMBER_3)  &kp LG(NUMBER_4)  &save_vim    &comment              &kp LG(LA(C))  &kp LC(LG(O))  &none          &save_vim
-        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &none        &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &ctrl_c
-&trans  &kp LG(LC(Z))     &kp LG(LC(X))     &kp LG(LC(C))     &kp LG(D)         &none        &kp LALT              &kp LG(LC(I))  &kp LC(LG(F))  &kp LC(LG(K))  &ctrl_f    &kp LC(C)
+        &kp LC(LG(S))     &none             &none             &kp LS(LG(D))     &pass3       &link                 &kp LG(LC(F))  &kp LG(LC(K))  &kp LG(LC(G))  &pass1
+&trans  &kp LG(LC(Z))     &kp LG(LC(X))     &kp LG(LC(C))     &kp LG(D)         &pass4       &kp LALT              &kp LG(LC(I))  &kp LC(LG(F))  &kp LC(LG(K))  &pass2     &kp LC(C)
                                             &none             &none             &alfred      &kp LS(LG(NUMBER_4))  &none          &none
             >;
         };
